@@ -38,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
             public void onLastItemVisible() {
                 if (isLoad || !hasMore) {
                     loadMoreListView.setFooter(LoadMoreListView.Mode.NOMORE);
+                    return;
                 }
                 isLoad = true;
                 getData();
@@ -55,15 +56,14 @@ public class MainActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                //取数据3次不再有时数据。
-                if (refreshTime == 3) {
-                    hasMore = false;
-                    return;
-                }
                 List<String> dataList = DataFactory.getData(0 + limit * refreshTime, limit);
                 dataAdapter.addData(dataList);
                 refreshTime = refreshTime + 1;
                 isLoad = false;
+                //取数据3次不再有时数据。
+                if (refreshTime == 3) {
+                    hasMore = false;
+                }
             }
         }, 3000);
     }
