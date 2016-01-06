@@ -71,11 +71,11 @@ public class LoadMoreListView extends ListView implements OnScrollListener {
         }
     }
 
-    public interface Mode {
+    public enum Mode {
         int LOAD = 0, NOMORE = 1, GONE = 2;
     }
 
-    public void setFooter(int mode) {
+    public void setFooter(Mode mode) {
         switch (mode) {
             case Mode.LOAD:
                 loadMoreLayout.setVisibility(View.VISIBLE);
